@@ -1,100 +1,204 @@
 /* ===================================================
    MYTHGLORY — Premium Beverages
-   Modern UI styling
+   Refined Modern UI Styling (Fully Corrected)
 =================================================== */
 
 :root {
   --brand-primary: #0d6efd;
   --brand-dark: #0a1f44;
   --brand-accent: #17c3b2;
-  --bg-soft: #f6f8fb;
-  --radius-lg: 18px;
-  --radius-md: 12px;
-  --shadow-soft: 0 10px 30px rgba(13, 25, 60, 0.08);
-  --shadow-hover: 0 16px 40px rgba(13, 25, 60, 0.16);
+  --bg-soft: #f8fafc;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 4px 12px rgba(10, 20, 50, 0.03);
+  --shadow-soft: 0 12px 34px rgba(10, 25, 60, 0.05);
+  --shadow-hover: 0 22px 48px rgba(10, 25, 60, 0.12);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   background-color: var(--bg-soft);
-  color: #1f2937;
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
 }
 
-.tracking-wider { letter-spacing: 0.08em; }
+.tracking-wider { letter-spacing: 0.06em; }
 .tracking-tight { letter-spacing: -0.02em; }
 
-/* ===================== NAVBAR ===================== */
+/* ===================== NAVBAR (SLIM & CRISP) ===================== */
 .custom-navbar {
-  background: rgba(255, 255, 255, 0.85) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(12px);
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
-  padding-top: 0.6rem;
-  padding-bottom: 0.6rem;
-  transition: all 0.3s ease;
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 8px 0 !important; /* Slimmed down from 12px to make it look compact */
+  height: 60px; /* Locked explicit height to seamlessly stitch with the banner */
+  transition: var(--transition-smooth);
 }
 
 .custom-logo {
-  width: 38px;
-  height: 38px;
+  width: 36px; /* Slightly smaller to match the compact aesthetic */
+  height: 36px;
   object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-sm);
 }
 
-.navbar-brand {
-  font-size: 1.35rem;
-  letter-spacing: 0.06em;
+/* Desktop Dropdowns Smooth Scale Animation */
+@media (min-width: 992px) {
+  .navbar-nav .dropdown-menu {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.98);
+    transition: var(--transition-smooth);
+    pointer-events: none;
+  }
+  .navbar-nav .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
 }
 
-.navbar-nav .nav-link {
-  color: #344054;
-  position: relative;
-  transition: color 0.2s ease;
+/* ===================== NEW & CLEAN HALF-SCREEN SLIDE DRAWER ===================== */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    display: none;
+    transition: var(--transition-smooth);
+  }
+
+  /* Half-screen panel drawer backdrop wrapper */
+  .navbar-collapse.show {
+    background-color: #ffffff !important;   
+    position: fixed !important;
+    top: 60px;                              /* Perfectly snaps directly below the slim header */
+    right: 0;                               
+    left: auto !important;
+    width: 65%;                             
+    height: calc(100vh - 60px);
+    padding: 35px 24px;
+    box-shadow: -10px 15px 30px rgba(0, 0, 0, 0.12); 
+    z-index: 99999 !important;              
+    overflow-y: auto;
+    display: block !important;
+    animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Vertical stack for menu text links */
+  .navbar-collapse.show .navbar-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;       
+    gap: 24px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar-collapse.show .nav-item {
+    width: 100%;
+    text-align: right;
+  }
+
+  .navbar-collapse.show .nav-link {
+    font-size: 1.3rem !important;
+    font-weight: 600 !important;
+    color: #1f2937 !important;
+    padding: 4px 0 !important;
+    display: inline-block;
+    transition: color 0.2s ease;
+  }
+
+  .navbar-collapse.show .nav-link:hover {
+    color: var(--brand-primary) !important;
+  }
+
+  /* Dropdown submenus inside the drawer panel */
+  .navbar-collapse.show .dropdown-menu {
+    position: relative !important;
+    background-color: #f8fafc !important;   
+    border: none !important;
+    box-shadow: none !important;
+    text-align: right !important;
+    padding-right: 14px;
+    margin-top: 6px;
+    width: 100%;
+    float: none !important;
+  }
+
+  .navbar-collapse.show .dropdown-item {
+    font-size: 1.05rem !important;
+    padding: 8px 0 !important;
+    color: #4b5563 !important;
+    background-color: transparent !important;
+  }
+
+  .navbar-collapse.show .dropdown-item:hover {
+    color: var(--brand-primary) !important;
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 }
 
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link:focus {
-  color: var(--brand-primary);
-}
-
+/* ===================== GENERAL REUSABLE DROPDOWN ===================== */
 .dropdown-menu {
-  border-radius: var(--radius-md);
-  padding: 0.5rem;
-  margin-top: 0.5rem;
-  animation: fadeSlideDown 0.18s ease;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  padding: 8px;
 }
 
 .dropdown-item {
-  font-size: 0.92rem;
-  transition: background 0.15s ease, color 0.15s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #334155;
+  transition: var(--transition-smooth);
 }
 
 .dropdown-item:hover {
-  background-color: rgba(13, 110, 253, 0.08);
-  color: var(--brand-primary);
-}
-
-@keyframes fadeSlideDown {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
+  background-color: rgba(13, 110, 253, 0.06) !important;
+  color: var(--brand-primary) !important;
 }
 
 .style-button-group .btn {
   font-weight: 600;
-  letter-spacing: 0.02em;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border-radius: 50px !important;
+  padding: 6px 18px; /* Slightly tighter button padding to match slim design */
+  transition: var(--transition-smooth);
 }
 
 .style-button-group .btn:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(13, 110, 253, 0.2);
 }
 
-/* ===================== HERO / BANNER ===================== */
-.banner-slideshow {
-  position: absolute;
-  inset: 0;
+/* ===================== HERO BANNER ===================== */
+.hero-overlay {
+  background: linear-gradient(135deg, rgba(10, 25, 62, 0.88) 0%, rgba(15, 23, 42, 0.45) 100%);
+}
+
+.display-3 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
 .banner-slideshow .slide {
@@ -103,8 +207,8 @@ body {
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 1.6s ease-in-out, transform 8s ease-in-out;
+  transform: scale(1.06);
+  transition: opacity 1.8s ease-in-out, transform 8s ease-in-out;
   animation: bannerFade 15s infinite;
 }
 
@@ -113,204 +217,97 @@ body {
 .banner-slideshow .slide:nth-child(3) { animation-delay: 10s; }
 
 @keyframes bannerFade {
-  0%   { opacity: 0; transform: scale(1.05); }
-  5%   { opacity: 1; transform: scale(1); }
-  30%  { opacity: 1; transform: scale(1.08); }
-  35%  { opacity: 0; transform: scale(1.08); }
+  0%   { opacity: 0; transform: scale(1.06); }
+  8%   { opacity: 1; transform: scale(1); }
+  33%  { opacity: 1; transform: scale(1.04); }
+  40%  { opacity: 0; transform: scale(1.04); }
   100% { opacity: 0; }
 }
 
-/* dark gradient overlay for readability */
-.hero-overlay {
-  background: linear-gradient(120deg, rgba(10, 20, 50, 0.85) 0%, rgba(10, 20, 50, 0.55) 45%, rgba(10, 20, 50, 0.25) 100%);
-}
-
-.display-3 {
-  font-weight: 800;
-  text-shadow: 0 4px 24px rgba(0,0,0,0.35);
-}
-
-.lead {
-  max-width: 540px;
-  font-size: 1.05rem;
-}
-
-.badge.bg-primary {
-  letter-spacing: 0.12em;
-  font-size: 0.72rem;
-  box-shadow: 0 6px 18px rgba(13,110,253,0.35);
-}
-
 .btn-info {
-  background: linear-gradient(135deg, #17c3b2, #0d6efd);
-  border: none;
-  box-shadow: 0 10px 24px rgba(13,110,253,0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: linear-gradient(135deg, #17c3b2, #0d6efd) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 10px 25px rgba(23, 195, 178, 0.3) !important;
+  transition: var(--transition-smooth) !important;
 }
 
 .btn-info:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(13,110,253,0.45);
-}
-
-.btn-outline-light {
-  border-width: 2px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.btn-outline-light:hover {
-  background: rgba(255,255,255,0.15);
-  transform: translateY(-3px);
-}
-
-/* ===================== SECTION TITLE ===================== */
-h1.display-5 {
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  border-bottom: 3px solid var(--brand-primary) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 14px 32px rgba(23, 195, 178, 0.45) !important;
 }
 
 /* ===================== SEARCH BAR ===================== */
-#product-search {
-  font-size: 0.95rem;
-}
-
 .input-group.shadow-sm.rounded-pill {
-  border-radius: 50px !important;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: #ffffff;
+  padding: 4px;
+  transition: var(--transition-smooth);
 }
 
 .input-group.shadow-sm.rounded-pill:focus-within {
-  box-shadow: 0 6px 24px rgba(13,110,253,0.18) !important;
+  box-shadow: 0 12px 30px rgba(13, 110, 253, 0.12) !important;
   border-color: var(--brand-primary) !important;
 }
 
 /* ===================== PRODUCT CARDS ===================== */
 #product-container .card {
+  border: 1px solid rgba(0, 0, 0, 0.04) !important;
   border-radius: var(--radius-lg) !important;
   box-shadow: var(--shadow-soft) !important;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  overflow: hidden;
+  background: #ffffff;
+  transition: var(--transition-smooth);
 }
 
 #product-container .col:hover .card {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
   box-shadow: var(--shadow-hover) !important;
 }
 
-#product-container .card-img-top {
-  transition: transform 0.4s ease;
+#product-container .card img {
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#product-container .col:hover .card-img-top {
-  transform: scale(1.06);
+#product-container .col:hover .card img {
+  transform: scale(1.05);
 }
 
 .card-title {
-  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
 }
 
 .card-price {
   font-weight: 700;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
+  color: var(--brand-primary);
 }
 
-#product-container .btn-outline-primary {
-  border-radius: 50px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-#product-container .btn-outline-primary:hover {
-  background-color: var(--brand-primary);
-  color: #fff;
-}
-
-.border-top {
-  border-color: #eef1f5 !important;
-}
-
-/* ===================== MODAL ===================== */
+/* ===================== MODAL UI ===================== */
 #productDetailModal .modal-content {
-  border-radius: 24px !important;
-}
-
-#productDetailModal .modal-body img {
-  border-radius: var(--radius-md);
-}
-
-#modal-interactive-panel h3.text-success {
-  font-size: 1.8rem;
-}
-
-#modal-interactive-panel .btn-dark {
-  background: var(--brand-dark);
+  border-radius: 28px !important;
   border: none;
-  border-radius: 50px;
-  transition: transform 0.2s ease;
-}
-
-#modal-interactive-panel .btn-dark:hover {
-  transform: translateY(-2px);
-}
-
-#modal-interactive-panel .btn-success {
-  border-radius: 50px;
-  background: linear-gradient(135deg, #20c997, #17a673);
-  border: none;
-  transition: transform 0.2s ease;
-}
-
-#modal-interactive-panel .btn-success:hover {
-  transform: translateY(-2px);
-}
-
-#modal-interactive-panel .input-group {
-  border-radius: 50px;
-  overflow: hidden;
-}
-
-/* QR payment buttons */
-#modal-interactive-panel .btn-outline-danger,
-#modal-interactive-panel .btn-primary {
-  border-radius: 50px;
-  font-weight: 600;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
 }
 
 /* ===================== FOOTER ===================== */
 footer {
-  background: linear-gradient(135deg, #0a1f44, #14305c) !important;
+  background: linear-gradient(135deg, #06152d, #0f2447) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-footer a:hover {
-  color: rgb(0, 225, 255) !important;
-  opacity: 1 !important;
-}
-
-footer h5 .text-primary {
-  color: var(--brand-accent) !important;
-}
-
-/* ===================== RESPONSIVE TWEAKS ===================== */
+/* ===================== RESPONSIVE MOBILE SIZES ===================== */
 @media (max-width: 768px) {
-  .display-3 { font-size: 2.4rem; }
-  .lead { font-size: 0.95rem; }
-}
-#product-container .card img {
-  height: 120px;
-  object-fit: cover;
+  .display-3 { font-size: 2.5rem; }
+  #product-container .card img { height: 140px; }
 }
 
 @media (max-width: 576px) {
-  #product-container .card-body {
-    padding: 0.6rem;
-  }
-  #product-container .card-title {
-    font-size: 0.85rem;
-  }
-  #product-container .card-text {
-    font-size: 0.75rem;
-  }
+  #product-container .card-body { padding: 12px; }
+  .card-title { font-size: 0.9rem; }
+  .card-price { font-size: 1.05rem; }
 }
+
